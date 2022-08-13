@@ -12,12 +12,10 @@ class Templator:
     @staticmethod
     def render(template_name, template_dir='templates', static_url='/static/', **kwargs):
         file_path = os.path.join(template_dir, template_name)
-        print()
 
         with open(file_path, 'r', encoding='utf-8') as f:
             env = Environment()
             env.globals['static'] = static_url
-            print(env.globals['static'])
             env.loader = FileSystemLoader(template_dir)
             template = env.get_template(template_name)
         return template.render(**kwargs)
