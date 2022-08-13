@@ -27,6 +27,6 @@ class PostRequests(BaseRequest):
 class GetRequests(BaseRequest):
     @staticmethod
     def get_request_params(env):
-        if env('QUERY_STRING'):
+        if env['QUERY_STRING']:
             return GetRequests.pars_params(env['QUERY_STRING'])
         return {}

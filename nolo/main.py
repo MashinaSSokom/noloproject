@@ -26,8 +26,6 @@ class Nolo:
             view = self.routes[path]
         elif path.startswith(STATIC_DIR):
             filename = path.split('/')[-1]
-            print(filename)
-            print(STATIC_DIR_PATH)
             static_path = os.path.join(STATIC_DIR_PATH, filename)
             with open(static_path, 'r') as f:
                 code, body = [f'200 OK', f.read()]
@@ -40,8 +38,8 @@ class Nolo:
 
         method = environ['REQUEST_METHOD']
         if method == 'GET':
-            print('get')
-
+            req_params = GetRequests.get_request_params(environ)
+            print('Параметры GET-запроса:', req_params)
         elif method == 'POST':
             data = PostRequests.get_request_data(environ)
             request['data'] = data
