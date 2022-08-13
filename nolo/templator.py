@@ -1,5 +1,5 @@
 import os
-from jinja2 import Template
+from jinja2 import Template, Environment, FileSystemLoader
 
 
 class Templator:
@@ -10,10 +10,14 @@ class Templator:
         pass
 
     @staticmethod
-    def render(template_name, template_dir='templates', **kwargs):
+    def render(template_name, template_dir='templates', static_url='/static/', **kwargs):
         file_path = os.path.join(template_dir, template_name)
-        print(file_path)
-        with open(file_path, 'r', encoding='utf-8') as f:
-            template = Template(f.read())
+        print()
 
+        with open(file_path, 'r', encoding='utf-8') as f:
+            env = Environment()
+            env.globals['static'] = static_url
+            print(env.globals['static'])
+            env.loader = FileSystemLoader(template_dir)
+            template = env.get_template(template_name)
         return template.render(**kwargs)

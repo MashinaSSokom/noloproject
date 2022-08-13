@@ -1,7 +1,10 @@
+import os.path
+from pprint import pprint
 from wsgiref.util import setup_testing_defaults
 
 from .base_middlewares import BASE_MIDDLEWARE
 from .base_views import not_found_view
+from .settings import STATIC_DIR, STATIC_DIR_PATH
 
 
 class Nolo:
@@ -15,16 +18,33 @@ class Nolo:
 
     def __call__(self, environ, start_response):
         setup_testing_defaults(environ)
+        # pprint(environ)
         path = environ['PATH_INFO']
 
         # page_controller
         if path in self.routes:
             view = self.routes[path]
+        elif path.startswith(STATIC_DIR):
+            filename = path.split('/')[-1]
+            print(filename)
+            print(STATIC_DIR_PATH)
+            static_path = os.path.join(STATIC_DIR_PATH, filename)
+            with open(static_path, 'r') as f:
+                code, body = [f'200 OK', f.read()]
+                start_response(code, [('Content-Type', 'text/css')])
+                return [body.encode('utf-8')]
         else:
             view = not_found_view
 
-        # front_controller
         request = {}
+
+        method = environ['REQUEST_METHOD']
+        if method == 'GET':
+            pass
+
+        elif method == 'POST':
+            pass
+        # front_controller
         for layer in self.middleware:
             layer(request, self.middleware_kwargs)
 
