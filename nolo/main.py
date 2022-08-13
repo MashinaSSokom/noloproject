@@ -5,7 +5,7 @@ from wsgiref.util import setup_testing_defaults
 from .base_middlewares import BASE_MIDDLEWARE
 from .base_views import not_found_view
 from .settings import STATIC_DIR, STATIC_DIR_PATH
-
+from .requests import PostRequests, GetRequests
 
 class Nolo:
 
@@ -40,10 +40,12 @@ class Nolo:
 
         method = environ['REQUEST_METHOD']
         if method == 'GET':
-            pass
+            print('get')
 
         elif method == 'POST':
-            pass
+            data = PostRequests.get_request_data(environ)
+            request['data'] = data
+            print(f'Получили данные {data}')
         # front_controller
         for layer in self.middleware:
             layer(request, self.middleware_kwargs)
