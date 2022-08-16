@@ -1,4 +1,4 @@
-## How to use run
+## How to launch
 ### with gunicorn
 ```bash
 gunicorn main:App

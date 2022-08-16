@@ -6,6 +6,7 @@ from nolo.main import Nolo
 
 from router import routes
 from middleware import set_username
+from settings import PORT, HOST
 
 MIDDLEWARE.extend([set_username])
 middleware_kwargs = {
@@ -13,6 +14,6 @@ middleware_kwargs = {
 }
 
 app = Nolo(routes, middleware=MIDDLEWARE, middleware_kwargs=middleware_kwargs)
-with make_server(host='localhost', port=8083, app=app) as httpd:
-    print(f'Сервер запущен на порту {8000}')
+with make_server(host=HOST, port=int(PORT), app=app) as httpd:
+    print(f'Сервер запущен по адресу http://{HOST}:{PORT}')
     httpd.serve_forever()
