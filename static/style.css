@@ -1,7 +1,20 @@
+:root{
+    --main-color: green;
+    --accident-colot:red;
+    --header-text-size: 1.2rem;
+    --main-text-size: 1rem;
+    --second-text-size: 0.8rem;
+}
+.container {
+    padding: 0 40px;
+}
 .header {
     width: 100%;
-    height: 150px;
     display: flex;
-    justify-content: space-between;
-    background: red;
+    justify-content: start;
+    font-size: var(--main-text-size);
+}
+
+.header a:first-child {
+    margin-right: 10px;
 }

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ static }}style.css">
 </head>
 <body>
+<div class="container">
     {% block header %}
         {% include 'head.html' %}
     {% endblock %}
@@ -16,5 +17,6 @@
     {% endblock %}
     {% block footer %}
     {% endblock %}
+</div>
 </body>
 </html>
